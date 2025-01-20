@@ -2,15 +2,16 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>ApostaPro - Próximos Jogos e Placar Ao Vivo</title>
-    <!-- Favicon (Opcional) -->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <!-- Font Awesome para ícones -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SuperPro - Plataforma de Análises de Apostas Esportivas</title>
+    <!-- Link para ícones (Font Awesome) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
+    <!-- Link para Google Fonts (Roboto e Montserrat para o título) -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto&display=swap" rel="stylesheet">
+    <!-- Estilos CSS -->
     <style>
-        /* Reset básico */
+        /* Reset básico para garantir consistência entre navegadores */
         * {
             margin: 0;
             padding: 0;
@@ -18,408 +19,770 @@
             font-family: 'Roboto', sans-serif;
         }
 
-        /* Variáveis de Cores */
+        /* Variáveis de cores para facilitar a manutenção e consistência */
         :root {
-            --color-primary: #1e3a8a; /* Azul escuro */
-            --color-secondary: #3b82f6; /* Azul médio */
-            --color-accent: #10b981; /* Verde */
-            --color-bg: #f3f4f6; /* Cinza claro */
-            --color-text: #1f2937; /* Cinza escuro */
-            --color-white: #ffffff;
-            --color-button-bg: #3b82f6;
-            --color-button-hover: #1e40af;
-            --color-button-text: #ffffff;
+            --cor-primaria: #1e3a8a; /* Azul escuro */
+            --cor-secundaria: #3b82f6; /* Azul médio */
+            --cor-accent: #10b981; /* Verde */
+            --cor-fundo: #f3f4f6; /* Cinza claro */
+            --cor-texto: #1f2937; /* Cinza escuro */
+            --cor-branca: #ffffff;
+            --cor-filtro-fundo: #ffffff;
+            --cor-filtro-borda: #d1d5db;
+            --cor-botao-fundo: #3b82f6;
+            --cor-botao-hover: #1e40af;
+            --cor-botao-texto: #ffffff;
+            --cor-botao-secundario-fundo: #e5e7eb;
+            --cor-botao-secundario-texto: #374151;
+            --cor-cartao-borda: #d1d5db;
+            --cor-cartao-hover: #e5e7eb;
+            --cor-tabela-cabecalho: #3b82f6;
+            --cor-tabela-texto: #1f2937;
+            --cor-tabela-borda: #d1d5db;
+            --cor-cabecalho-fundo: var(--cor-branca);
+            --cor-cabecalho-sombra: rgba(0, 0, 0, 0.1);
+            --cor-sidebar-fundo: var(--cor-primaria);
+            --cor-sidebar-ativa: var(--cor-secundaria);
+            --cor-sucesso-borda: #10b981; /* Verde para acerto */
+            --cor-erro-borda: #ef4444; /* Vermelho para erro */
         }
 
-        /* Estilos do Header */
-        header {
-            background-color: var(--color-primary);
-            color: var(--color-white);
-            padding: 20px;
-            text-align: center;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        /* Estilos do Main */
-        main {
-            padding: 20px;
-            margin-bottom: 60px; /* Espaço para o footer fixo */
-        }
-
-        /* Navegação */
-        nav {
+        /* Estilos para a Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 220px; /* Largura da sidebar */
+            height: 100%;
+            background-color: var(--cor-sidebar-fundo);
+            color: var(--cor-branca);
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 20px;
+            flex-direction: column;
+            transition: transform 0.3s ease-in-out;
+            z-index: 1000;
         }
 
-        nav button {
-            background-color: var(--color-button-bg);
-            color: var(--color-button-text);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-
-        nav button:hover {
-            background-color: var(--color-button-hover);
-        }
-
-        /* Seções */
-        .section {
-            display: none;
-        }
-
-        .active {
-            display: block;
-        }
-
-        /* Seção de Seleção de Liga */
-        .league-selection {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-            justify-content: center;
-        }
-
-        .league-selection label {
-            font-weight: bold;
-            color: var(--color-text);
-        }
-
-        .league-selection select {
-            padding: 8px;
-            border: 1px solid var(--color-secondary);
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-
-        .league-selection button {
-            padding: 8px 16px;
-            background-color: var(--color-button-bg);
-            color: var(--color-button-text);
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .league-selection button:hover {
-            background-color: var(--color-button-hover);
-        }
-
-        /* Container das Partidas */
-        .matches-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        /* Cartão de Partida */
-        .match-card {
-            background-color: var(--color-white);
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .match-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-
-        .match-card h3 {
-            margin-bottom: 10px;
-            color: var(--color-primary);
-            font-size: 1.2rem;
-        }
-
-        .match-details {
+        .sidebar-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 20px;
+            background-color: var(--cor-sidebar-ativa);
+            border-bottom: 1px solid var(--cor-filtro-borda); /* Borda sutil */
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            /* Mantendo apenas o texto do logo */
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--cor-branca);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: none; /* Esconder em desktop */
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding-top: 20px;
+        }
+
+        .sidebar-nav ul {
+            list-style: none;
+        }
+
+        .sidebar-nav li {
             margin-bottom: 10px;
         }
 
-        .team {
+        .sidebar-nav a {
             display: flex;
             align-items: center;
-            gap: 10px;
+            padding: 12px 20px;
+            color: var(--cor-branca);
+            text-decoration: none;
+            transition: background 0.2s, border 0.2s;
+            border-radius: 4px;
+            font-size: 1rem;
+            border: 1px solid transparent; /* Borda transparente para manter o alinhamento */
+            flex-shrink: 0;
         }
 
-        .team img {
-            width: 30px;
-            height: 30px;
-            object-fit: cover;
-            border-radius: 50%;
+        .sidebar-nav a:hover {
+            background-color: var(--cor-sidebar-ativa);
+            border: 1px solid var(--cor-secundaria); /* Borda sutil no hover */
         }
 
-        .match-time {
-            font-weight: bold;
-            color: var(--color-secondary);
+        .sidebar-nav i {
+            margin-right: 10px;
         }
 
-        .match-score {
-            margin-top: 10px;
-            font-weight: bold;
-            color: var(--color-accent);
-        }
-
-        /* Mensagens de Erro */
-        .error-message {
-            color: red;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        /* Estilos do Footer */
-        footer {
-            background-color: var(--color-primary);
-            color: var(--color-white);
-            text-align: center;
-            padding: 10px;
+        /* Overlay para mobile */
+        .overlay {
             position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            bottom: 0;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            z-index: 900;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 220px; /* Ajustar conforme a largura da sidebar */
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-color: var(--cor-fundo);
+            transition: margin-left 0.3s ease-in-out;
+            padding: 20px; /* Adicionar padding para não ficar grudado nas bordas */
+            overflow-y: auto;
+        }
+
+        /* Cabeçalho */
+        .header {
+            height: 70px; /* Aumento da altura para acomodar novos elementos */
+            background-color: var(--cor-cabecalho-fundo);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            box-shadow: 0 2px 4px var(--cor-cabecalho-sombra);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--cor-filtro-borda); /* Borda sutil */
+            flex-shrink: 0; /* Evitar encolhimento */
+            flex-wrap: wrap; /* Permitir que os elementos envolvam */
+            position: relative; /* Para posicionamento absoluto do menu button */
+        }
+
+        /* Botão de Menu para Mobile */
+        .menu-btn {
+            display: none; /* Esconder em desktop */
+            background: none;
+            border: none;
+            color: var(--cor-texto);
+            font-size: 1.5rem;
+            cursor: pointer;
+            position: absolute; /* Posicionar absoluto */
+            left: 20px; /* Alinhar à esquerda */
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* Logo no Cabeçalho */
+        .header-logo {
+            display: flex;
+            align-items: center;
+            flex: 1 1 200px; /* Flex-grow, flex-shrink, flex-basis */
+            justify-content: flex-start; /* Alinhar à esquerda no desktop */
+        }
+
+        .header-logo a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--cor-primaria);
+        }
+
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        /* Barra de Busca */
+        .search-bar {
+            display: flex;
+            align-items: center;
+            flex: 2 1 300px; /* Flex-grow, flex-shrink, flex-basis */
+            max-width: 400px; /* Aumentar para mais espaço */
+            margin: 0 30px;
+            width: 100%; /* Garantir que ocupe a largura disponível */
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 5px 12px; /* Aumentado para 32px de altura */
+            border: 1px solid var(--cor-filtro-borda);
+            border-right: none;
+            border-radius: 4px 0 0 4px;
+            outline: none;
+            font-size: 0.9rem; /* Aumentado para 0.9rem */
+            color: var(--cor-texto);
+            height: 32px; /* Definido para controlar a altura */
+        }
+
+        .search-bar button {
+            padding: 5px 12px; /* Aumentado para 32px de altura */
+            border: 1px solid transparent; /* Borda transparente para manter o alinhamento */
+            background-color: var(--cor-botao-fundo);
+            color: var(--cor-botao-texto);
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+            font-size: 0.9rem; /* Aumentado para 0.9rem */
+            height: 32px; /* Definido para controlar a altura */
+        }
+
+        .search-bar button:hover {
+            background-color: var(--cor-botao-hover);
+            border: 1px solid var(--cor-secundaria); /* Mudança da cor da borda no hover */
+        }
+
+        /* Filtros */
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+            align-items: center;
+            background-color: var(--cor-filtro-fundo);
+            padding: 15px;
+            border: 1px solid var(--cor-filtro-borda);
+            border-radius: 8px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-group label {
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: var(--cor-texto);
+        }
+
+        .filter-select, .filter-date {
+            padding: 8px 12px;
+            border: 1px solid var(--cor-filtro-borda);
+            border-radius: 4px;
+            outline: none;
+            width: 200px;
+            transition: border-color 0.2s;
+        }
+
+        .filter-select:focus, .filter-date:focus {
+            border-color: var(--cor-secundaria);
+        }
+
+        .filter-button {
+            padding: 10px 20px;
+            background-color: var(--cor-botao-fundo);
+            color: var(--cor-botao-texto);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .filter-button:hover {
+            background-color: var(--cor-botao-hover);
+        }
+
+        #clear-filters {
+            background-color: var(--cor-botao-secundario-fundo);
+            color: var(--cor-botao-secundario-texto);
+        }
+
+        #clear-filters:hover {
+            background-color: #e5e7eb;
+        }
+
+        /* Cards */
+        .analysis-card {
+            background-color: var(--cor-branca);
+            padding: 20px;
+            border-radius: 12px; /* Aumento do border-radius */
+            border: 1px solid var(--cor-cartao-borda); /* Reduzido de 2px para 1px */
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Melhoria na sombra */
+            margin-bottom: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .analysis-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+        }
+
+        /* Classes para indicar resultado */
+        .analysis-card.resultado-ganhou {
+            border-color: var(--cor-sucesso-borda);
+            background-color: rgba(16, 185, 129, 0.05); /* Verde claro */
+        }
+
+        .analysis-card.resultado-perdeu {
+            border-color: var(--cor-erro-borda);
+            background-color: rgba(239, 68, 68, 0.05); /* Vermelho claro */
+        }
+
+        .analysis-card h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.6rem;
+            color: var(--cor-texto);
+            margin-bottom: 10px;
+        }
+
+        .analysis-card p {
+            color: #4b5563;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .card-footer {
+            font-size: 0.9rem;
+            color: #6b7280;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        /* Botões Remover */
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .card-actions button {
+            background: none;
+            border: 1px solid var(--cor-primaria); /* Adicionado borda para consistência */
+            color: var(--cor-primaria);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            transition: color 0.3s, background-color 0.3s, border-color 0.3s;
+            padding: 5px 10px; /* Ajustado para harmonizar com a barra de busca */
+            border-radius: 4px;
+        }
+
+        .card-actions button:hover {
+            color: var(--cor-secundaria);
+            background-color: var(--cor-cartao-hover);
+            border-color: var(--cor-secundaria); /* Mudança da cor da borda no hover */
+        }
+
+        .card-actions button i {
+            margin-right: 5px;
+        }
+
+        /* Mensagens de Erro e Carregamento */
+        .message {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.1rem;
+        }
+
+        .message.error {
+            color: var(--cor-erro-borda);
+        }
+
+        .message.success {
+            color: var(--cor-sucesso-borda);
+        }
+
+        .loading {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.1rem;
+            color: var(--cor-botao-fundo);
+        }
+
+        /* Footer */
+        .footer {
+            height: 40px; /* Redução da altura do rodapé */
+            background-color: var(--cor-primaria);
+            color: var(--cor-branca);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            margin-top: auto;
+            border-top: 1px solid var(--cor-filtro-borda); /* Borda sutil */
         }
 
         /* Responsividade */
-        @media (max-width: 600px) {
-            nav {
-                flex-direction: column;
-                align-items: center;
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 180px;
             }
 
-            footer {
-                position: static;
+            .main-content {
+                margin-left: 180px;
             }
 
-            .league-selection {
-                flex-direction: column;
-                align-items: center;
+            .header {
+                padding: 0 20px;
+                height: 100px; /* Manter altura fixa */
+                flex-wrap: wrap; /* Permitir quebra de linha */
             }
 
-            .match-card {
+            .search-bar {
+                margin: 10px 0; /* Adicionado margem vertical */
+                max-width: 250px; /* Ajuste para telas menores */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: 220px;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .overlay.active {
+                display: block;
+            }
+
+            .close-btn {
+                display: block;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .feed {
                 padding: 10px;
             }
 
-            .match-card h3 {
-                font-size: 1rem;
+            /* Ocultar a barra de busca */
+            .search-bar {
+                display: none;
+            }
+
+            /* Botão de Menu visível apenas em mobile */
+            .menu-btn {
+                display: block;
+                position: absolute; /* Posicionar absoluto */
+                left: 20px; /* Alinhar à esquerda */
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            /* Centralizar o logo na versão mobile */
+            .header-logo {
+                align-self: center; /* Alinha o logo ao centro */
+                text-align: center; /* Centraliza o texto dentro do container */
+                flex: 1;
+            }
+
+            /* Ajustar layout da barra de busca para mobile */
+            .search-bar {
+                display: none; /* Garantir que a barra de busca esteja oculta */
+            }
+
+            /* Ajustes adicionais para os botões na versão mobile */
+            .card-actions {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .card-actions button {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: center; /* Alinhar itens ao centro */
+                height: auto;
+                padding: 10px;
+            }
+
+            /* Aumento do espaçamento entre o cabeçalho e as dicas */
+            .feed {
+                margin-top: 20px; /* Ajuste conforme necessário */
+            }
+        }
+
+        /* Adição de espaçamento entre o cabeçalho e as dicas para telas maiores */
+        @media (min-width: 769px) {
+            .feed {
+                margin-top: 30px; /* Ajuste conforme necessário */
             }
         }
     </style>
-</head>
-<body>
-    <header>
-        <h1>ApostaPro</h1>
-    </header>
 
-    <main>
-        <nav>
-            <button id="btn-next-matches">Próximos Jogos</button>
-            <button id="btn-live-scores">Placar Ao Vivo</button>
-        </nav>
+    <!-- Favicon vazio para evitar erro 404 -->
+    <link rel="icon" href="data:,">
 
-        <!-- Seção Próximos Jogos -->
-        <section id="section-next-matches" class="section active">
-            <div class="league-selection">
-                <label for="league-next">Selecione a Liga:</label>
-                <select id="league-next">
-                    <option value="">--Escolha uma Liga--</option>
-                    <option value="2021">Premier League (Inglaterra)</option>
-                    <option value="2014">La Liga (Espanha)</option>
-                    <option value="2019">Serie A (Itália)</option>
-                    <option value="2002">Bundesliga (Alemanha)</option>
-                    <option value="2015">Ligue 1 (França)</option>
-                    <option value="2016">Primeira Liga (Portugal)</option>
-                    <!-- Adicione mais ligas conforme necessário -->
-                </select>
-                <button id="fetch-next-btn">Buscar Próximos Jogos</button>
-            </div>
+    <!-- Inclusão da Biblioteca PapaParse -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
 
-            <section id="matches-container-next" class="matches-container">
-                <!-- As partidas serão exibidas aqui -->
-            </section>
-        </section>
-
-        <!-- Seção Placar Ao Vivo -->
-        <section id="section-live-scores" class="section">
-            <div class="league-selection">
-                <label for="league-live">Selecione a Liga:</label>
-                <select id="league-live">
-                    <option value="">--Escolha uma Liga--</option>
-                    <option value="2021">Premier League (Inglaterra)</option>
-                    <option value="2014">La Liga (Espanha)</option>
-                    <option value="2019">Serie A (Itália)</option>
-                    <option value="2002">Bundesliga (Alemanha)</option>
-                    <option value="2015">Ligue 1 (França)</option>
-                    <option value="2016">Primeira Liga (Portugal)</option>
-                    <!-- Adicione mais ligas conforme necessário -->
-                </select>
-                <button id="fetch-live-btn">Buscar Placar Ao Vivo</button>
-            </div>
-
-            <section id="matches-container-live" class="matches-container">
-                <!-- Os placares ao vivo serão exibidos aqui -->
-            </section>
-        </section>
-    </main>
-
-    <footer>
-        © 2025 ApostaPro. Todos os direitos reservados.
-    </footer>
-
-    <!-- JavaScript -->
+    <!-- Script JavaScript -->
     <script>
-        // Botões de navegação
-        const btnNextMatches = document.getElementById('btn-next-matches');
-        const btnLiveScores = document.getElementById('btn-live-scores');
+        // ------------------- CONFIGURAÇÕES DA API -------------------
+        const API_KEY = 'b77014eeea8142d354a2e0479bcc2d08';
+        const BASE_URL = 'https://api.sportmonks.com/v3/football';
 
-        // Seções
-        const sectionNextMatches = document.getElementById('section-next-matches');
-        const sectionLiveScores = document.getElementById('section-live-scores');
+        // IDs de exemplo de ligas e temporadas
+        const LIGAS = [
+            { id: '2014', nome: 'Premier League' },
+            { id: '2021', nome: 'La Liga' },
+            { id: '2015', nome: 'Serie A' }
+            // Adicione mais ligas conforme necessário
+        ];
 
-        // Função para alternar seções
-        btnNextMatches.addEventListener('click', () => {
-            sectionNextMatches.classList.add('active');
-            sectionLiveScores.classList.remove('active');
-        });
+        const TEMPORADAS = [
+            { id: '2025', ano: '2025' },
+            { id: '2024', ano: '2024' },
+            { id: '2023', ano: '2023' }
+            // Adicione mais temporadas conforme necessário
+        ];
 
-        btnLiveScores.addEventListener('click', () => {
-            sectionLiveScores.classList.add('active');
-            sectionNextMatches.classList.remove('active');
-        });
-
-        /**
-         * Função para buscar dados da API.
-         * @param {string} type - Tipo de requisição ('next' ou 'live').
-         * @param {string} leagueId - ID da liga.
-         * @param {string} season - Temporada (necessário apenas para 'next').
-         */
-        const fetchMatches = async (type, leagueId, season = null) => {
-            if (!type || !leagueId || (type === 'next' && !season)) {
-                alert('Parâmetros insuficientes para a requisição.');
-                return;
-            }
-
-            let url = `/api/matches?type=${type}&leagueId=${leagueId}`;
-            if (type === 'next') {
-                url += `&season=${season}`;
-            }
+        // ------------------- FUNÇÕES DE FETCH E EXIBIÇÃO -------------------
+        async function fetchCalendar(leagueId, seasonId) {
+            const endpoint = `${BASE_URL}/fixtures/upcoming`;
+            const url = `${endpoint}?api_token=${API_KEY}&league_id=${leagueId}&season_id=${seasonId}`;
 
             try {
                 const response = await fetch(url);
                 if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.error || `Erro: ${response.status} ${response.statusText}`);
+                    throw new Error(`Erro na requisição: ${response.status} ${response.statusText}`);
                 }
-
                 const data = await response.json();
-                console.log(`${type === 'next' ? 'Próximos Jogos' : 'Placar Ao Vivo'}:`, data);
-                displayMatches(data.data, type);
+                displayCalendar(data.data);
             } catch (error) {
-                console.error(`Erro ao buscar ${type === 'next' ? 'próximos jogos' : 'placares ao vivo'}:`, error);
-                const containerId = type === 'next' ? 'matches-container-next' : 'matches-container-live';
-                document.getElementById(containerId).innerHTML = `<p class="error-message">Ocorreu um erro ao buscar ${type === 'next' ? 'próximos jogos' : 'placares ao vivo'}: ${error.message}</p>`;
+                console.error('Erro ao buscar o calendário de jogos:', error);
+                document.getElementById('results').innerHTML = `<p class="message error">Erro ao carregar os jogos: ${error.message}</p>`;
             }
-        };
+        }
 
-        /**
-         * Função para exibir as partidas na página.
-         * @param {Array} matches - Array de objetos de partidas.
-         * @param {string} type - Tipo de exibição ('next' ou 'live').
-         */
-        const displayMatches = (matches, type) => {
-            const container = type === 'next' ? document.getElementById('matches-container-next') : document.getElementById('matches-container-live');
-            container.innerHTML = ''; // Limpa o conteúdo anterior
+        function displayCalendar(jogos) {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = ''; // Limpar resultados anteriores
 
-            if (!matches || matches.length === 0) {
-                container.innerHTML = '<p>Nenhuma partida encontrada.</p>';
+            if (!jogos || jogos.length === 0) {
+                resultsDiv.innerHTML = '<p class="message">Nenhum jogo encontrado para os parâmetros selecionados.</p>';
                 return;
             }
 
-            matches.forEach(match => {
-                // Ajuste a estrutura conforme a resposta da API
-                const matchDate = new Date(match.utcDate);
-                const hours = matchDate.getHours().toString().padStart(2, '0');
-                const minutes = matchDate.getMinutes().toString().padStart(2, '0');
-                const time = `${hours}:${minutes}`;
-                const date = matchDate.toLocaleDateString('pt-BR');
+            const listaJogos = document.createElement('ul');
+            listaJogos.style.listStyle = 'none';
+            listaJogos.style.padding = '0';
 
-                const matchCard = document.createElement('div');
-                matchCard.classList.add('match-card');
+            jogos.forEach(jogo => {
+                const item = document.createElement('li');
+                item.style.backgroundColor = 'var(--cor-branca)';
+                item.style.padding = '15px';
+                item.style.marginBottom = '10px';
+                item.style.borderRadius = '8px';
+                item.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
 
-                // Verifica se as informações estão disponíveis e utiliza placeholders se necessário
-                const competitionName = match.competition && match.competition.name ? match.competition.name : 'Competição';
-                const localTeamName = match.localteam && match.localteam.name ? match.localteam.name : 'Time Local';
-                const visitorTeamName = match.visitorteam && match.visitorteam.name ? match.visitorteam.name : 'Time Visitante';
-                const localTeamLogo = match.localteam && match.localteam.logo_path ? match.localteam.logo_path : 'https://via.placeholder.com/30';
-                const visitorTeamLogo = match.visitorteam && match.visitorteam.logo_path ? match.visitorteam.logo_path : 'https://via.placeholder.com/30';
-                const scores = match.scores && match.scores.ft_home !== null && match.scores.ft_away !== null
-                    ? `<div class="match-score">Placar: ${match.scores.ft_home} - ${match.scores.ft_away}</div>`
-                    : '';
+                const nomeJogo = jogo.name || 'Nome do Jogo Indisponível';
+                const dataHora = jogo.time && jogo.time.starting_at && jogo.time.starting_at.formatted 
+                    ? new Date(jogo.time.starting_at.timestamp * 1000).toLocaleString()
+                    : 'Data/Hora Indisponível';
+                const estadio = jogo.venue && jogo.venue.name ? jogo.venue.name : 'Estádio Indisponível';
 
-                matchCard.innerHTML = `
-                    <h3>${competitionName}</h3>
-                    <div class="match-details">
-                        <div class="team">
-                            <img src="${localTeamLogo}" alt="${localTeamName}">
-                            <span>${localTeamName}</span>
-                        </div>
-                        <span>VS</span>
-                        <div class="team">
-                            <img src="${visitorTeamLogo}" alt="${visitorTeamName}">
-                            <span>${visitorTeamName}</span>
-                        </div>
-                    </div>
-                    <div class="match-time">
-                        <i class="fas fa-clock"></i> ${date} ${time} 
-                    </div>
-                    ${type === 'live' ? scores : ''}
+                item.innerHTML = `
+                    <h3 style="margin-bottom: 5px; color: var(--cor-primaria);">${nomeJogo}</h3>
+                    <p><strong>Data e Hora:</strong> ${dataHora}</p>
+                    <p><strong>Estádio:</strong> ${estadio}</p>
                 `;
 
-                container.appendChild(matchCard);
+                listaJogos.appendChild(item);
             });
-        };
 
-        // Evento de clique no botão de buscar próximos jogos
-        document.getElementById('fetch-next-btn').addEventListener('click', () => {
-            const leagueSelect = document.getElementById('league-next');
-            const leagueId = leagueSelect.value;
-            const season = new Date().getFullYear(); // Temporada atual
+            resultsDiv.appendChild(listaJogos);
+        }
 
-            if (leagueId) {
-                fetchMatches('next', leagueId, season);
-            } else {
-                alert('Por favor, selecione uma liga.');
-            }
-        });
-
-        // Evento de clique no botão de buscar placar ao vivo
-        document.getElementById('fetch-live-btn').addEventListener('click', () => {
-            const leagueSelect = document.getElementById('league-live');
-            const leagueId = leagueSelect.value;
-
-            if (leagueId) {
-                fetchMatches('live', leagueId);
-            } else {
-                alert('Por favor, selecione uma liga.');
-            }
-        });
-
-        // Carregar a seção inicial
+        // ------------------- CONFIGURAÇÃO INICIAL -------------------
         window.addEventListener('DOMContentLoaded', () => {
-            // Por padrão, exibir a seção de Próximos Jogos
-            sectionNextMatches.classList.add('active');
-            sectionLiveScores.classList.remove('active');
+            const selectLiga = document.getElementById('league');
+            const selectTemporada = document.getElementById('season');
+            const btnBuscar = document.getElementById('fetch-next');
+
+            // Preencher os selects de liga e temporada
+            LIGAS.forEach(liga => {
+                const option = document.createElement('option');
+                option.value = liga.id;
+                option.textContent = liga.nome;
+                selectLiga.appendChild(option);
+            });
+
+            TEMPORADAS.forEach(temporada => {
+                const option = document.createElement('option');
+                option.value = temporada.id;
+                option.textContent = temporada.ano;
+                selectTemporada.appendChild(option);
+            });
+
+            // Adicionar evento de clique no botão de busca
+            btnBuscar.addEventListener('click', () => {
+                const ligaSelecionada = selectLiga.value;
+                const temporadaSelecionada = selectTemporada.value;
+
+                if (!ligaSelecionada || !temporadaSelecionada) {
+                    alert('Por favor, selecione uma liga e uma temporada.');
+                    return;
+                }
+
+                fetchCalendar(ligaSelecionada, temporadaSelecionada);
+            });
+
+            // Opcional: Buscar automaticamente ao carregar a página com os primeiros valores
+            // fetchCalendar(LIGAS[0].id, TEMPORADAS[0].id);
         });
+    </script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h1 class="logo">SuperPro</h1>
+            <button class="close-btn" id="close-btn" aria-label="Fechar Sidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li>
+                    <a href="index2.html" aria-label="Home">
+                        <i class="fas fa-home"></i>
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="analise.html" aria-label="Análises">
+                        <i class="fas fa-chart-bar"></i>
+                        Análises
+                    </a>
+                </li>
+                <li>
+                    <a href="jogos.html" aria-label="Explorar">
+                        <i class="fas fa-compass"></i>
+                        Explorar
+                    </a>
+                </li>
+                <li>
+                    <a href="selecao.html" aria-label="Minhas Seleções">
+                        <i class="fas fa-list"></i>
+                        Minhas Seleções
+                    </a>
+                </li>
+                <li>
+                    <a href="perfil.html" aria-label="Perfil">
+                        <i class="fas fa-user"></i>
+                        Perfil
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="logout-btn" aria-label="Sair">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Sair
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Overlay para mobile -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <header class="header">
+            <!-- Botão de menu para mobile -->
+            <button class="menu-btn" id="menu-btn" aria-label="Abrir Sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+            <!-- Logo no Cabeçalho -->
+            <div class="header-logo">
+                <a href="index2.html" aria-label="SuperPro Home">
+                    <span class="logo-text">SuperPro</span>
+                </a>
+            </div>
+            <!-- Barra de Busca (Removida conforme sua solicitação de focar no calendário) -->
+            <!-- 
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Buscar análises ou tipsters..." aria-label="Buscar">
+                <button id="search-btn" aria-label="Buscar">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            -->
+        </header>
+
+        <!-- Conteúdo Principal -->
+        <main class="feed" id="feed">
+            <!-- Filtros -->
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="league">Selecione a Liga:</label>
+                    <select id="league" class="filter-select">
+                        <option value="">-- Selecionar Liga --</option>
+                        <!-- Opções serão preenchidas dinamicamente -->
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="season">Selecione a Temporada:</label>
+                    <select id="season" class="filter-select">
+                        <option value="">-- Selecionar Temporada --</option>
+                        <!-- Opções serão preenchidas dinamicamente -->
+                    </select>
+                </div>
+                <button id="fetch-next" class="filter-button"><i class="fas fa-calendar-alt"></i> Buscar Calendário</button>
+            </div>
+            <!-- Container para exibir os jogos -->
+            <div id="results">
+                <!-- Jogos serão exibidos aqui -->
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            © 2025 SuperPro. Todos os direitos reservados.
+        </footer>
+    </div>
+
+    <!-- Scripts para funcionalidades da Sidebar -->
+    <script>
+        // Funções para controlar a sidebar em dispositivos mobile
+        const botaoMenu = document.getElementById('menu-btn');
+        const botaoFechar = document.getElementById('close-btn');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        if (botaoMenu) {
+            botaoMenu.addEventListener('click', () => {
+                sidebar.classList.add('active');
+                overlay.classList.add('active');
+            });
+        }
+
+        if (botaoFechar) {
+            botaoFechar.addEventListener('click', () => {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+        }
+
+        if (overlay) {
+            overlay.addEventListener('click', () => {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+        }
     </script>
 </body>
 </html>
