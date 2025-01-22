@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SuperPro - Plataforma de Análises de Apostas Esportivas</title>
+    <title>SuperPro - Calendário de Jogos</title>
     <!-- Link para ícones (Font Awesome) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Link para Google Fonts (Roboto e Montserrat para o título) -->
@@ -140,10 +140,10 @@
             margin-left: 220px; /* Ajustar conforme a largura da sidebar */
             display: flex;
             flex-direction: column;
-            height: 100vh;
+            min-height: 100vh;
             background-color: var(--cor-fundo);
             transition: margin-left 0.3s ease-in-out;
-            padding: 20px; /* Adicionar padding para não ficar grudado nas bordas */
+            padding: 40px 20px 20px 20px; /* Adicionado padding-top para espaçamento */
             overflow-y: auto;
         }
 
@@ -200,221 +200,6 @@
             font-weight: 700;
         }
 
-        /* Barra de Busca */
-        .search-bar {
-            display: flex;
-            align-items: center;
-            flex: 2 1 300px; /* Flex-grow, flex-shrink, flex-basis */
-            max-width: 400px; /* Aumentar para mais espaço */
-            margin: 0 30px;
-            width: 100%; /* Garantir que ocupe a largura disponível */
-        }
-
-        .search-bar input {
-            width: 100%;
-            padding: 5px 12px; /* Aumentado para 32px de altura */
-            border: 1px solid var(--cor-filtro-borda);
-            border-right: none;
-            border-radius: 4px 0 0 4px;
-            outline: none;
-            font-size: 0.9rem; /* Aumentado para 0.9rem */
-            color: var(--cor-texto);
-            height: 32px; /* Definido para controlar a altura */
-        }
-
-        .search-bar button {
-            padding: 5px 12px; /* Aumentado para 32px de altura */
-            border: 1px solid transparent; /* Borda transparente para manter o alinhamento */
-            background-color: var(--cor-botao-fundo);
-            color: var(--cor-botao-texto);
-            border-radius: 0 4px 4px 0;
-            cursor: pointer;
-            transition: background-color 0.3s, border-color 0.3s;
-            font-size: 0.9rem; /* Aumentado para 0.9rem */
-            height: 32px; /* Definido para controlar a altura */
-        }
-
-        .search-bar button:hover {
-            background-color: var(--cor-botao-hover);
-            border: 1px solid var(--cor-secundaria); /* Mudança da cor da borda no hover */
-        }
-
-        /* Filtros */
-        .filters {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 20px;
-            align-items: center;
-            background-color: var(--cor-filtro-fundo);
-            padding: 15px;
-            border: 1px solid var(--cor-filtro-borda);
-            border-radius: 8px;
-        }
-
-        .filter-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .filter-group label {
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: var(--cor-texto);
-        }
-
-        .filter-select, .filter-date {
-            padding: 8px 12px;
-            border: 1px solid var(--cor-filtro-borda);
-            border-radius: 4px;
-            outline: none;
-            width: 200px;
-            transition: border-color 0.2s;
-        }
-
-        .filter-select:focus, .filter-date:focus {
-            border-color: var(--cor-secundaria);
-        }
-
-        .filter-button {
-            padding: 10px 20px;
-            background-color: var(--cor-botao-fundo);
-            color: var(--cor-botao-texto);
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: background-color 0.3s;
-        }
-
-        .filter-button:hover {
-            background-color: var(--cor-botao-hover);
-        }
-
-        #clear-filters {
-            background-color: var(--cor-botao-secundario-fundo);
-            color: var(--cor-botao-secundario-texto);
-        }
-
-        #clear-filters:hover {
-            background-color: #e5e7eb;
-        }
-
-        /* Cards */
-        .analysis-card {
-            background-color: var(--cor-branca);
-            padding: 20px;
-            border-radius: 12px; /* Aumento do border-radius */
-            border: 1px solid var(--cor-cartao-borda); /* Reduzido de 2px para 1px */
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Melhoria na sombra */
-            margin-bottom: 20px;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .analysis-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
-        }
-
-        /* Classes para indicar resultado */
-        .analysis-card.resultado-ganhou {
-            border-color: var(--cor-sucesso-borda);
-            background-color: rgba(16, 185, 129, 0.05); /* Verde claro */
-        }
-
-        .analysis-card.resultado-perdeu {
-            border-color: var(--cor-erro-borda);
-            background-color: rgba(239, 68, 68, 0.05); /* Vermelho claro */
-        }
-
-        .analysis-card h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.6rem;
-            color: var(--cor-texto);
-            margin-bottom: 10px;
-        }
-
-        .analysis-card p {
-            color: #4b5563;
-            margin-bottom: 10px;
-            line-height: 1.6;
-        }
-
-        .card-footer {
-            font-size: 0.9rem;
-            color: #6b7280;
-            display: flex;
-            justify-content: space-between;
-            margin-top: 15px;
-        }
-
-        /* Botões Remover */
-        .card-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .card-actions button {
-            background: none;
-            border: 1px solid var(--cor-primaria); /* Adicionado borda para consistência */
-            color: var(--cor-primaria);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            font-size: 0.9rem;
-            transition: color 0.3s, background-color 0.3s, border-color 0.3s;
-            padding: 5px 10px; /* Ajustado para harmonizar com a barra de busca */
-            border-radius: 4px;
-        }
-
-        .card-actions button:hover {
-            color: var(--cor-secundaria);
-            background-color: var(--cor-cartao-hover);
-            border-color: var(--cor-secundaria); /* Mudança da cor da borda no hover */
-        }
-
-        .card-actions button i {
-            margin-right: 5px;
-        }
-
-        /* Mensagens de Erro e Carregamento */
-        .message {
-            text-align: center;
-            margin: 20px 0;
-            font-size: 1.1rem;
-        }
-
-        .message.error {
-            color: var(--cor-erro-borda);
-        }
-
-        .message.success {
-            color: var(--cor-sucesso-borda);
-        }
-
-        .loading {
-            text-align: center;
-            margin: 20px 0;
-            font-size: 1.1rem;
-            color: var(--cor-botao-fundo);
-        }
-
-        /* Footer */
-        .footer {
-            height: 40px; /* Redução da altura do rodapé */
-            background-color: var(--cor-primaria);
-            color: var(--cor-branca);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
-            margin-top: auto;
-            border-top: 1px solid var(--cor-filtro-borda); /* Borda sutil */
-        }
-
         /* Responsividade */
         @media (max-width: 1024px) {
             .sidebar {
@@ -423,17 +208,13 @@
 
             .main-content {
                 margin-left: 180px;
+                padding: 40px 15px 15px 15px; /* Ajuste de padding para responsividade */
             }
 
             .header {
                 padding: 0 20px;
                 height: 100px; /* Manter altura fixa */
                 flex-wrap: wrap; /* Permitir quebra de linha */
-            }
-
-            .search-bar {
-                margin: 10px 0; /* Adicionado margem vertical */
-                max-width: 250px; /* Ajuste para telas menores */
             }
         }
 
@@ -457,15 +238,7 @@
 
             .main-content {
                 margin-left: 0;
-            }
-
-            .feed {
-                padding: 10px;
-            }
-
-            /* Ocultar a barra de busca */
-            .search-bar {
-                display: none;
+                padding: 60px 20px 20px 20px; /* Maior padding-top para espaçamento no mobile */
             }
 
             /* Botão de Menu visível apenas em mobile */
@@ -473,176 +246,37 @@
                 display: block;
                 position: absolute; /* Posicionar absoluto */
                 left: 20px; /* Alinhar à esquerda */
-                top: 50%;
-                transform: translateY(-50%);
+                top: 20px; /* Ajuste para evitar sobreposição com o header */
+                transform: none; /* Remover a tradução vertical */
             }
 
-            /* Centralizar o logo na versão mobile */
+            /* Remover o logo na versão mobile */
             .header-logo {
-                align-self: center; /* Alinha o logo ao centro */
-                text-align: center; /* Centraliza o texto dentro do container */
-                flex: 1;
+                display: none;
             }
 
-            /* Ajustar layout da barra de busca para mobile */
-            .search-bar {
-                display: none; /* Garantir que a barra de busca esteja oculta */
-            }
-
-            /* Ajustes adicionais para os botões na versão mobile */
-            .card-actions {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .card-actions button {
-                width: 100%;
-                justify-content: flex-start;
-            }
-
+            /* Adiciona espaçamento entre o cabeçalho e o widget */
             .header {
-                flex-direction: column;
-                align-items: center; /* Alinhar itens ao centro */
-                height: auto;
-                padding: 10px;
-            }
-
-            /* Aumento do espaçamento entre o cabeçalho e as dicas */
-            .feed {
-                margin-top: 20px; /* Ajuste conforme necessário */
+                margin-bottom: 20px;
             }
         }
 
-        /* Adição de espaçamento entre o cabeçalho e as dicas para telas maiores */
-        @media (min-width: 769px) {
-            .feed {
-                margin-top: 30px; /* Ajuste conforme necessário */
-            }
+        /* Footer */
+        .footer {
+            height: 40px; /* Redução da altura do rodapé */
+            background-color: var(--cor-primaria);
+            color: var(--cor-branca);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            margin-top: auto;
+            border-top: 1px solid var(--cor-filtro-borda); /* Borda sutil */
         }
     </style>
 
     <!-- Favicon vazio para evitar erro 404 -->
     <link rel="icon" href="data:,">
-
-    <!-- Inclusão da Biblioteca PapaParse -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
-
-    <!-- Script JavaScript -->
-    <script>
-        // ------------------- CONFIGURAÇÕES DA API -------------------
-        const API_KEY = 'b77014eeea8142d354a2e0479bcc2d08';
-        const BASE_URL = 'https://api.sportmonks.com/v3/football';
-
-        // IDs de exemplo de ligas e temporadas
-        const LIGAS = [
-            { id: '2014', nome: 'Premier League' },
-            { id: '2021', nome: 'La Liga' },
-            { id: '2015', nome: 'Serie A' }
-            // Adicione mais ligas conforme necessário
-        ];
-
-        const TEMPORADAS = [
-            { id: '2025', ano: '2025' },
-            { id: '2024', ano: '2024' },
-            { id: '2023', ano: '2023' }
-            // Adicione mais temporadas conforme necessário
-        ];
-
-        // ------------------- FUNÇÕES DE FETCH E EXIBIÇÃO -------------------
-        async function fetchCalendar(leagueId, seasonId) {
-            const endpoint = `${BASE_URL}/fixtures/upcoming`;
-            const url = `${endpoint}?api_token=${API_KEY}&league_id=${leagueId}&season_id=${seasonId}`;
-
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error(`Erro na requisição: ${response.status} ${response.statusText}`);
-                }
-                const data = await response.json();
-                displayCalendar(data.data);
-            } catch (error) {
-                console.error('Erro ao buscar o calendário de jogos:', error);
-                document.getElementById('results').innerHTML = `<p class="message error">Erro ao carregar os jogos: ${error.message}</p>`;
-            }
-        }
-
-        function displayCalendar(jogos) {
-            const resultsDiv = document.getElementById('results');
-            resultsDiv.innerHTML = ''; // Limpar resultados anteriores
-
-            if (!jogos || jogos.length === 0) {
-                resultsDiv.innerHTML = '<p class="message">Nenhum jogo encontrado para os parâmetros selecionados.</p>';
-                return;
-            }
-
-            const listaJogos = document.createElement('ul');
-            listaJogos.style.listStyle = 'none';
-            listaJogos.style.padding = '0';
-
-            jogos.forEach(jogo => {
-                const item = document.createElement('li');
-                item.style.backgroundColor = 'var(--cor-branca)';
-                item.style.padding = '15px';
-                item.style.marginBottom = '10px';
-                item.style.borderRadius = '8px';
-                item.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
-
-                const nomeJogo = jogo.name || 'Nome do Jogo Indisponível';
-                const dataHora = jogo.time && jogo.time.starting_at && jogo.time.starting_at.formatted 
-                    ? new Date(jogo.time.starting_at.timestamp * 1000).toLocaleString()
-                    : 'Data/Hora Indisponível';
-                const estadio = jogo.venue && jogo.venue.name ? jogo.venue.name : 'Estádio Indisponível';
-
-                item.innerHTML = `
-                    <h3 style="margin-bottom: 5px; color: var(--cor-primaria);">${nomeJogo}</h3>
-                    <p><strong>Data e Hora:</strong> ${dataHora}</p>
-                    <p><strong>Estádio:</strong> ${estadio}</p>
-                `;
-
-                listaJogos.appendChild(item);
-            });
-
-            resultsDiv.appendChild(listaJogos);
-        }
-
-        // ------------------- CONFIGURAÇÃO INICIAL -------------------
-        window.addEventListener('DOMContentLoaded', () => {
-            const selectLiga = document.getElementById('league');
-            const selectTemporada = document.getElementById('season');
-            const btnBuscar = document.getElementById('fetch-next');
-
-            // Preencher os selects de liga e temporada
-            LIGAS.forEach(liga => {
-                const option = document.createElement('option');
-                option.value = liga.id;
-                option.textContent = liga.nome;
-                selectLiga.appendChild(option);
-            });
-
-            TEMPORADAS.forEach(temporada => {
-                const option = document.createElement('option');
-                option.value = temporada.id;
-                option.textContent = temporada.ano;
-                selectTemporada.appendChild(option);
-            });
-
-            // Adicionar evento de clique no botão de busca
-            btnBuscar.addEventListener('click', () => {
-                const ligaSelecionada = selectLiga.value;
-                const temporadaSelecionada = selectTemporada.value;
-
-                if (!ligaSelecionada || !temporadaSelecionada) {
-                    alert('Por favor, selecione uma liga e uma temporada.');
-                    return;
-                }
-
-                fetchCalendar(ligaSelecionada, temporadaSelecionada);
-            });
-
-            // Opcional: Buscar automaticamente ao carregar a página com os primeiros valores
-            // fetchCalendar(LIGAS[0].id, TEMPORADAS[0].id);
-        });
-    </script>
 </head>
 <body>
     <!-- Sidebar -->
@@ -712,41 +346,44 @@
                     <span class="logo-text">SuperPro</span>
                 </a>
             </div>
-            <!-- Barra de Busca (Removida conforme sua solicitação de focar no calendário) -->
-            <!-- 
-            <div class="search-bar">
-                <input type="text" id="search-input" placeholder="Buscar análises ou tipsters..." aria-label="Buscar">
-                <button id="search-btn" aria-label="Buscar">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-            -->
         </header>
 
         <!-- Conteúdo Principal -->
         <main class="feed" id="feed">
-            <!-- Filtros -->
-            <div class="filters">
-                <div class="filter-group">
-                    <label for="league">Selecione a Liga:</label>
-                    <select id="league" class="filter-select">
-                        <option value="">-- Selecionar Liga --</option>
-                        <!-- Opções serão preenchidas dinamicamente -->
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="season">Selecione a Temporada:</label>
-                    <select id="season" class="filter-select">
-                        <option value="">-- Selecionar Temporada --</option>
-                        <!-- Opções serão preenchidas dinamicamente -->
-                    </select>
-                </div>
-                <button id="fetch-next" class="filter-button"><i class="fas fa-calendar-alt"></i> Buscar Calendário</button>
+            <!-- Widget de Jogos -->
+            <div id="wg-api-football-games"
+                 data-host="v3.football.api-sports.io"
+                 data-key="b77014eeea8142d354a2e0479bcc2d08"
+                 data-date="" <!-- Será definido automaticamente -->
+                 data-league="39" <!-- Premier League -->
+                 data-season="2025" <!-- Temporada 2025 -->
+                 data-theme="light" <!-- Pode ser "grey", "dark" ou "false" para customizar com CSS -->
+                 data-refresh="15"
+                 data-show-toolbar="true"
+                 data-show-errors="true" <!-- Habilitado para depuração -->
+                 data-show-logos="true"
+                 data-modal-game="true"
+                 data-modal-standings="true"
+                 data-modal-show-logos="true">
             </div>
-            <!-- Container para exibir os jogos -->
-            <div id="results">
-                <!-- Jogos serão exibidos aqui -->
-            </div>
+            <!-- Script para definir a data atual antes de carregar o widget -->
+            <script>
+                // Definir a data atual no formato YYYY-MM-DD
+                const today = new Date();
+                const year = today.getFullYear();
+                const month = String(today.getMonth() + 1).padStart(2, '0'); // Meses começam em 0
+                const day = String(today.getDate()).padStart(2, '0');
+                const formattedDate = `${year}-${month}-${day}`;
+
+                // Selecionar o widget e definir o atributo data-date
+                const widget = document.getElementById('wg-api-football-games');
+                widget.setAttribute('data-date', formattedDate);
+            </script>
+            <!-- Script do Widget -->
+            <script
+                type="module"
+                src="https://widgets.api-sports.io/2.0.3/widgets.js">
+            </script>
         </main>
 
         <!-- Footer -->
